@@ -36,6 +36,7 @@ function sortCategories(criteria, array){
 }
 
 function showCategoriesList(){
+    console.log(currentCategoriesArray);
 
     let htmlContentToAppend = "";
     for(let i = 0; i < currentCategoriesArray.length; i++){

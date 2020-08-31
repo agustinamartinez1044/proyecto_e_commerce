@@ -36,24 +36,18 @@
       margin: auto;
     }
 
-    /*form {
-      width: 500px;
-      padding: 26px;
-      border-radius: 10px;
-      margin: auto;
-    }*/
-.login-box{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 600px;
-  padding: 5px;
-  transform: translate(-50%, -50%);
-  background: rgb(194, 24, 80);
-  box-sizing: border-box;
-  box-shadow: 15px 15px 15px  rgb(156, 4, 55);
-  border-radius: 5px;
-}
+    .login-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 600px;
+      padding: 5px;
+      transform: translate(-50%, -50%);
+      background: rgb(194, 24, 80);
+      box-sizing: border-box;
+      box-shadow: 15px 15px 15px rgb(156, 4, 55);
+      border-radius: 5px;
+    }
 
     input[type=text] {
       width: 100%;
@@ -130,9 +124,9 @@
       <div class="wrapper">
         <form id="userinfo" action="" method="POST">
 
-          <input type="text" placeholder="Usuario" required><br>
+          <input id="inputEmail" type="text" placeholder="Usuario" required><br>
 
-          <input type="password" placeholder="Contraseña" required><br>
+          <input id="inputClave" type="password" placeholder="Contraseña" required><br>
 
           <label for="remember-me">Recuerdame</label>
           <input type="checkbox"> <br>
