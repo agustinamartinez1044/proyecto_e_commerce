@@ -32,15 +32,17 @@ function sortProducts(criteria, array) {
     }
     return result;
 }
-function showProductsList() {
+function showProductsList(array) {
     let html = "";
     for (let i = 0; i < currentProductsArray.length; i++) {
         let product = currentProductsArray[i];
 
         if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
             ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))) {
-            html += `
-            <a href="products-info.html" class="list-group-item list-group-item-action">
+
+            //if (buscar == undefined || product.name.toLowerCase().indexOf(buscar) != -1) {
+                html += `
+            <a href="product-info.html?producto=` + product.name + `"class="list-group-item list-group-item-action">
                 <div class="row">
                     <div class="col-3">
                         <img src="` + product.imgSrc + `" alt="` + product.description + `" class="img-thumbnail">
@@ -48,13 +50,14 @@ function showProductsList() {
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
                             <h4 class="mb-1">`+ product.name + " - " + product.currency + " " + product.cost + `</h4>
-                            <small class="text-muted">` + product.soldCount + ` artículos vendidos</small>
+                            <small class="text-muted">` + product.cost + ` artículos vendidos</small>
                         </div>
                         <p class="mb-1">` + product.description + `</p>
                         
                     </div>
                 </div>
             </a>`
+           // }
         }
         document.getElementById("contenedor").innerHTML = html;
     }

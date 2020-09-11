@@ -7,7 +7,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <title>eMercado - Todo lo que busques está aquí</title>
+  <style>
+    :root {
+      --color-inactivo: #5f5050;
+      --color-hover: #ffa400;
+    }
 
+    .valoracion {
+      display: flex;
+      float: left;
+      flex-direction: row-reverse;
+    }
+
+    .valoracion button {
+      background-color: initial;
+      border: 0;
+      color: var(--color-inactivo);
+      transition: 1s all;
+    }
+
+    .valoracion button:hover {
+      cursor: pointer;
+      color: var(--color-hover);
+    }
+
+    button:nth-child(1):hover~button {
+      color: var(--color-hover);
+    }
+
+    button:nth-child(2):hover~button {
+      color: var(--color-hover);
+    }
+
+    button:nth-child(3):hover~button {
+      color: var(--color-hover);
+    }
+
+    button:nth-child(4):hover~button {
+      color: var(--color-hover);
+    }
+
+    button:nth-child(5):hover~button {
+      color: var(--color-hover);
+    }
+
+    #botoncomentario {
+      color: #0099CC;
+      background: transparent;
+      border: 2px solid #0099CC;
+      border-radius: 6px;
+    }
+
+    #botoncomentario:hover {
+      background-color: #008CBA;
+      color: white;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+    integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -25,18 +83,85 @@
       <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
     </div>
   </nav>
+  <main role="main" class="pb-5">
+    <div class="container mt-5">
+      <div class="text-center p-4">
+        <h2>Descripción del producto</h2>
+        <p class="lead">Encontrarás aquí toda la información del producto seleccionado.</p>
+      </div>
+      <h3 id="productoName"></h3>
+      <hr class="my-3">
+      <dl>
+        <dt>Descripción:</dt>
+        <dd>
+          <p id="productoDescription"></p>
+        </dd>
 
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 3 (Fecha de entrega: 13/09/2020) y Entrega 4 (Fecha de entrega:
-        20/09/2020).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+        <dt>Precio:</dt>
+        <dd>
+          <p id="productoCost"></p>
+        </dd>
+
+        <dt>Cantidad de productos:</dt>
+        <dd>
+          <p id="productCount"></p>
+        </dd>
+
+        <dt><i class="far fa-images"></i> Imágenes ilustrativas:</dt>
+
+        <dd>
+          <div class="row text-center text-lg-left pt-2" id="productImagesGallery">
+          </div>
+        </dd>
+      </dl>
+      <a type="button" class="btn btn-light btn-lg btn-block" href="products.html">Volver a productos</a>
     </div>
-  </div>
 
-  <footer class="text-muted">
+    <!-- Comentarios: -->
+    <div class="container">
+      <hr class="my-3 p-4">
+      <div class="text-lg-left p-2">
+        <h2 id="cantidad"></h2>
+      </div>
+      <div class="container">
+        <div class="list-group-item list-group-item-action">
+          <div class="list-group">
+            <div class="text-center p-4">
+              <div id="comments"></div>
+            </div>
+          </div>
+          <form id="userinfo" action="" method="POST">
+            <h3>Escriba su comentario:</h3>
+            <textarea name="comentario" id="comentarios" cols="60" rows="3"
+              placeholder="Describa acá su experiencia.."></textarea>
+            <p class="font-weight-normal text-muted my-1">Puntuación:
+            <div class="valoracion">
+              <button>
+                <i class="fas fa-star"></i>
+              </button>
+              <button>
+                <i class="fas fa-star"></i>
+              </button>
+              <button>
+                <i class="fas fa-star"></i>
+              </button>
+              <button>
+                <i class="fas fa-star"></i>
+              </button>
+              <button>
+                <i class="fas fa-star"></i>
+              </button>
+            </div>
+            </p><br>
+            <button class="btn btn-primary my-2" type="submit">Enviar</button>
+        </div>
+      </div>
+      </form>
+    </div>
+    </div>
+    <hr class="my-3">
+  </main>
+  <footer class="text-muted bg-light">
     <div class="container">
       <p class="float-right">
         <a href="#">Volver arriba</a>
