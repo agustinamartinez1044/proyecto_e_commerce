@@ -9,7 +9,7 @@ function showProductsList(info) {
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
                             <h4 class="mb-1">`+ info.name + " - " + info.currency + " " + info.cost + `</h4>
-                            <small class="text-muted">` + info.cost + ` artículos vendidos</small>
+                            <small class="text-muted">` + info.soldCount + ` artículos vendidos</small>
                         </div>
                         <p class="mb-1">` + info.description + `</p>
                         
