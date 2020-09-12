@@ -36,12 +36,9 @@ function showProductsList(array) {
     let html = "";
     for (let i = 0; i < currentProductsArray.length; i++) {
         let product = currentProductsArray[i];
-
         if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
             ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))) {
-
-            //if (buscar == undefined || product.name.toLowerCase().indexOf(buscar) != -1) {
-                html += `
+            html += `
             <a href="product-info.html?producto=` + product.name + `"class="list-group-item list-group-item-action">
                 <div class="row">
                     <div class="col-3">
@@ -57,7 +54,6 @@ function showProductsList(array) {
                     </div>
                 </div>
             </a>`
-           // }
         }
         document.getElementById("contenedor").innerHTML = html;
     }
@@ -74,9 +70,6 @@ function sortAndShowProducts(sortCriteria, productsArray) {
     showProductsList();
 }
 
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function (e) {
 
     getJSONData(PRODUCTS_URL).then(function (resultObj) {
