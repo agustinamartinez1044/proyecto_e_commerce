@@ -8,31 +8,51 @@
   <meta name="description" content="">
   <title>eMercado - Todo lo que busques está aquí</title>
   <style>
-    .ec-stars-wrapper {
-      font-size: 0;
-      display: inline-block;
+    #form {
+      width: 250px;
+      margin: 0 auto;
+      height: 50px;
     }
 
-    .ec-stars-wrapper a {
-      text-decoration: none;
-      display: inline-block;
-      font-size: 32px;
-      font-size: 2rem;
-
-      color: #888;
+    #form p {
+      text-align: center;
     }
 
-    .ec-stars-wrapper:hover a {
-      color: rgb(39, 130, 228);
+    #form label {
+      font-size: 20px;
     }
 
-    .ec-stars-wrapper>a:hover~a {
-      color: #888;
+    input[type="radio"] {
+      display: none;
+    }
+
+    label {
+      color: grey;
+    }
+
+    .clasificacion {
+      direction: rtl;
+      unicode-bidi: bidi-override;
+    }
+
+    label:hover,
+    label:hover~label {
+      color: orange;
+    }
+
+    input[type="radio"]:checked~label {
+      color: orange;
+    }
+
+    .carousel {
+      width: 50%;
+      max-height: 50%;
+      display: block;
+      margin: auto;
     }
   </style>
 
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-    integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -47,7 +67,6 @@
       <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
       <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
       <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
-      <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
     </div>
   </nav>
   <main role="main" class="pb-5">
@@ -74,12 +93,26 @@
           <p id="productCount"></p>
         </dd>
 
-        <dt><i class="far fa-images"></i> Imágenes ilustrativas:</dt>
+        <dt><i class="far fa-images"></i> Imágenes ilustrativas:</dt><br>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
 
-        <dd>
-          <div class="row text-center text-lg-left pt-2" id="productImagesGallery">
-          </div>
-        </dd>
+          <div class="carousel-inner" id="carousel"></div>
+
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div><br>
+
 
         <dt> Productos relacionados:</dt>
         <dd>
@@ -105,24 +138,29 @@
               <div id="comments"></div>
             </div>
           </div>
-          <form id="userinfo" action="" method="POST">
-            <h3>Escriba su comentario:</h3>
-            <input id="user" type="text" placeholder="Nombre" required> <br><br>
-            <textarea name="comentario" id="comentarios" cols="60" rows="3"
-              placeholder="Describa acá su experiencia.." required></textarea>
-            <p class="font-weight-normal text-muted my-1">Puntuación:
-            <div class="ec-stars-wrapper">
-              <a href="#" data-value="1" title="Votar con 1 estrellas"><i class="fas fa-star"></i></a>
-              <a href="#" data-value="1" title="Votar con 2 estrellas"><i class="fas fa-star"></i></a>
-              <a href="#" data-value="1" title="Votar con 3 estrellas"><i class="fas fa-star"></i></a>
-              <a href="#" data-value="1" title="Votar con 4 estrellas"><i class="fas fa-star"></i></a>
-              <a href="#" data-value="1" title="Votar con 5 estrellas"><i class="fas fa-star"></i></a>
-            </div>
+          <form id="comentarios" action method="POST">
+            <textarea name="comentario" id="coment" cols="60" rows="3" placeholder="Describa acá su experiencia.."required></textarea><br>
+            Puntuación:
+            <p id="stars" class="clasificacion" >
+              <input id="radio1" type="radio" name="estrellas" value="5">
+              <label for="radio1"><i class="fas fa-star"></i></label>
+              
+              <input id="radio2" type="radio" name="estrellas" value="4">
+              <label for="radio2"><i class="fas fa-star"></i></label>
+              
+              <input id="radio3" type="radio" name="estrellas" value="3">
+              <label for="radio3"><i class="fas fa-star"></i></label>
+              
+              <input id="radio4" type="radio" name="estrellas" value="2">
+              <label for="radio4"><i class="fas fa-star"></i></label>
+              
+              <input id="radio5" type="radio" name="estrellas" value="1">
+              <label for="radio5"><i class="fas fa-star"></i></label>
             </p>
-            <button class="btn btn-primary my-2" type="submit">Enviar</button>
-
-
+            <!-- <button class="btn btn-primary my-2" type="submit">Enviar</button> -->
+            <input type="submit" value="submit" name="submit"  class="btn btn-primary my-2" >
           </form>
+
         </div>
       </div>
     </div>

@@ -1,3 +1,18 @@
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+
+        if (pair[0] == variable) {
+            return pair[1];
+        }
+    }
+    return false;
+}
+let nombre = getQueryVariable('producto');
+let name = decodeURIComponent(nombre);
+
 function showProductsList(info) {
     let html = "";
         html += `
@@ -21,22 +36,27 @@ function showProductsList(info) {
 
 function showImagesGallery(array) {
     let htmlContentToAppend = "";
-    for (let i = 0; i < array.length; i++) {
+
+    htmlContentToAppend += `
+    <div class="carousel-item active "> 
+        <img class="class="d-block w-100" src="` + array[0] + `" alt="">
+    </div>`;
+    for (let i = 1; i < array.length; i++) {
         let imageSrc = array[i];
         htmlContentToAppend += `
-        <div class="col-lg-2 col-md-2 col-3">
-            <div class="d-block mb-4 h-100">
-                <img class="img-fluid img-thumbnail" src="` + imageSrc + `" alt="">
-            </div>
-        </div>
-        `
-        document.getElementById("productImagesGallery").innerHTML = htmlContentToAppend;
+        <div class="carousel-item" > 
+            <img class="class="d-block w-100" src="` + imageSrc + `" alt="">
+        </div>`
     }
+    document.getElementById("carousel").innerHTML = htmlContentToAppend;
 }
+
+
 function showRelatedProducts(arrayRelatedProducts, productoRelated){
     let htmlContentToAppendRelated = "";
     for (let i = 0; i <arrayRelatedProducts.length; i++) {
-        let info = productoRelated[i];
+        let subindice = arrayRelatedProducts[i];
+        let info = productoRelated[subindice];
         htmlContentToAppendRelated += ` ` + showProductsList(info) + ``
         document.getElementById("productoRelated").innerHTML = htmlContentToAppendRelated;
     }
@@ -93,31 +113,22 @@ function showCommentsList(array) {
     document.getElementById("cantidad").innerHTML = html;
 }
 
-function getQueryVariable(variable) {
-    var query = window.location.search.substring(1);
-    var vars = query.split("&");
-    for (var i = 0; i < vars.length; i++) {
-        var pair = vars[i].split("=");
-
-        if (pair[0] == variable) {
-            return pair[1];
-        }
-    }
-    return false;
-}
-let nombre = getQueryVariable('producto');
-let name = decodeURIComponent(nombre);
-
 document.addEventListener("DOMContentLoaded", function (e) {
     let productoRelated;
     getJSONData(PRODUCTS_URL).then(function (resultObj) {
         if (resultObj.status === "ok") {
             productoRelated = resultObj.data;
         }
+        getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (resultObj) {
+            if (resultObj.status === "ok") {
+                showCommentsList(resultObj.data);
+            }
+        });
     });
+ 
     getJSONData(PRODUCT_INFO_URL).then(function (resultObj) {
         if (resultObj.status === "ok") {
-            producto = resultObj.data;
+            let producto = resultObj.data;
 
             let productoNameHTML = document.getElementById("productoName");
             let productoDescriptionHTML = document.getElementById("productoDescription");
@@ -133,9 +144,46 @@ document.addEventListener("DOMContentLoaded", function (e) {
             showRelatedProducts(producto.relatedProducts, productoRelated);
         }
     });
-    getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (resultObj) {
-        if (resultObj.status === "ok") {
-            showCommentsList(resultObj.data);
+    var currentDate = new Date();
+    var dateTime = currentDate.getFullYear() + "-"
+            + (currentDate.getMonth()+1) + "-"
+            + currentDate.getDate() + " "
+            + currentDate.getHours() + ":"
+            + currentDate.getMinutes() + ":" 
+            + currentDate.getSeconds();
+
+    //Agregar un nuevo comentario
+    document.getElementById('comentarios').addEventListener('submit', (evento) => {
+        evento.preventDefault();
+        let comentario = {
+            description: document.getElementById("coment").value,
+            puntaje: document.querySelector('input[type=radio]:checked').value
         }
-    });
+        let html = `
+        <div class="row">
+            <div class="list-group-item list-group-item-action">
+                <div class="text-center p-4"> 
+                <div class="row text-center text-lg-left pt-2 "> 
+                <h5 class="text-center">`+ `<i class="fas fa-user"></i>` + ` ` + JSON.parse(localStorage.getItem("nom")).nombre + `</h> 
+            </div>  
+                    <div class="row text-center text-lg-left pt-6 "> 
+                        <p id="commentScore">` + comentario.puntaje + `
+                            <div class="stars-outer">` + obtenerEstrellas(comentario.puntaje) + obtenerEstrellasVacia(comentario.puntaje) + ` </div>
+                        </p>
+                    </div>  
+                    <div class="row text-center text-lg-left pt-2 "> 
+                        <p class="mb-1">` + comentario.description + `</p>
+                    </div>
+                    <div class="d-flex w-100 justify-content-between  pt-2">
+                        <h4 class="mb-1">`+ " " + `</h4>
+                        <small class="float-right">`+ `<i class="fas fa-calendar-alt"></i>` + ` ` + dateTime + `</small>
+                    </div>
+                </div>
+            </div>  
+        </div>`
+        document.getElementById("comments").innerHTML += html;
+
+        return true;
+    
+    })
 });

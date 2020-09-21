@@ -32,6 +32,7 @@ function sortProducts(criteria, array) {
     }
     return result;
 }
+
 function showProductsList(array) {
     let html = "";
     for (let i = 0; i < currentProductsArray.length; i++) {
