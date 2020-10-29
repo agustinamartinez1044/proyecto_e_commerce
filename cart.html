@@ -12,6 +12,13 @@
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <!-- <link href="css/dropzone.css" rel="stylesheet"> -->
+
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -27,10 +34,14 @@
         font-size: 3.5rem;
       }
     }
+
+    hr {
+      /* height: 10px; */
+      margin-left: 0%;
+      width: 50%;
+    }
   </style>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
-  <link href="css/dropzone.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -42,14 +53,266 @@
       <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
     </div>
   </nav>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 5 (Fecha de entrega: 11/10/2020) y Entrega 6 (Fecha de entrega: 25/10/2020).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+
+  <div class="container">
+
+    <div class="text-center p-4">
+      <h2>Carrito de compras</h2><br>
+    </div>
+        <div class="float-left">
+          <h3 class="lead">Artículos a comprar:</h3>
+        </div>
+
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Costo</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody class="cartItems" id="carrito">
+          </tbody>
+        </table>
+        <br>
+        <br>
+        <form class="needs-validation" id="formEnvio">
+
+          <h4>Tipo de envío: </h4>
+          <hr class="my-3">
+          <div class="d-block my-3">
+            <div class="custom-control custom-radio success">
+              <input id="envioPremium" name="tipoEnvio" type="radio" class="custom-control-input" checked=""
+                required="">
+              <label class="custom-control-label" for="envioPremium">Premium 2 a 5 días (15%)</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input id="envioExpress" name="tipoEnvio" type="radio" class="custom-control-input" required="">
+              <label class="custom-control-label" for="envioExpress">Express 5 a 8 días (7%)</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input id="envioStandard" name="tipoEnvio" type="radio" class="custom-control-input" required="">
+              <label class="custom-control-label" for="envioStandard">Standard 12 a 15 días (5%)</label>
+            </div>
+          </div>
+          <br>
+
+
+          <h4>Dirección de envío: </h4>
+          <hr class="my-3">
+          <div class="row">
+            <div class="col-md-3 mb-2">
+              <label for="calleEnvio">Calle</label>
+              <input type="text" class="form-control" id="calleEnvio" placeholder="" value="">
+              <div class="invalid-feedback">
+                Ingresa una calle
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="numeroCalleEnvio">Número</label>
+              <input type="number" class="form-control" id="numeroCalleEnvio" placeholder="" value="">
+              <div class="invalid-feedback">
+                Ingresa un número
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 mb-2">
+              <label for="esquinaCalleEnvio">Esquina</label>
+              <input type="text" class="form-control" id="esquinaCalleEnvio" placeholder="" value="">
+              <div class="invalid-feedback">
+                Esquina con...
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+
+
+          <div class="row">
+            <div class="col">
+              <h3>Costos</h3>
+              <hr class="my-3">
+              <div class="list-group  mb-3" style="width:60%">
+                <div class="list-group-item d-flex justify-content-between">
+                  <div>
+                    <h5>
+                      <class="mb-1">Subtotal (todos los productos)
+                    </h5>
+                    <small class="text-muted">Costo unitario del producto por cantidad</small>
+                  </div>
+                  <small class="text-muted" id="SubtotalFinal"></small>
+                </div>
+
+                <div class="list-group-item d-flex justify-content-between">
+                  <div>
+                    <h5>
+                      <class="mb-1">Costo de envío
+                    </h5>
+                    <small class="text-muted">Según el tipo de envío</small>
+                  </div>
+                  <small class="text-muted" id="CostoEnvio"></small>
+                </div>
+
+                <div class="list-group-item d-flex justify-content-between">
+                  <h5>
+                    <class="mb-1">Total ($)
+                  </h5><br>
+                  <small id="costoTotalFinal" style="font-weight: bold"></small>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+
+          <div class="row">
+            <div class="col">
+              <h3>Forma de pago</h3>
+              <hr class="my-3">
+              <!-- Button modal -->
+              <div>
+                <span class="label" id="tipoPago">No has seleccionado</span>
+                <button type="button" class="btn bg-transparent" style="color: rgb(40, 40, 151);" data-toggle="modal"
+                  data-target="#modalForm">
+                  Seleccionar forma de pago
+                </button>
+              </div>
+              <div class="invalid-feedback" id="formaPago">
+                Debe eleccionar una forma de pago
+              </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" tabindex="-1" id="modalForm" role="dialog" id="Modal">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h4 class="modal-title">Forma de pago</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <!-- Modal Body -->
+                  <div class="modal-body" id="modalCuerpo">
+                    <div class="container">
+
+                      <div class="row">
+                        <div class="custom-control custom-radio">
+                          <input id="tarjetaCredito" name="paymentType" type="radio" class="custom-control-input">
+                          <label class="custom-control-label" for="tarjetaCredito">Tarjeta de crédito</label>
+                        </div>
+                      </div>
+                      <hr>
+
+                      <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                          <input type="text" class="form-control" id="numTarjeta" placeholder="" value="">
+                          <label for="numTarjeta">Número de tarjeta</label>
+                          <div class="invalid-feedback">
+                            Número de tarjeta...
+                          </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                          <input type="number" class="form-control" id="codSeg" placeholder="" value="">
+                          <label for="codSeg">Código de seg.</label>
+                          <div class="invalid-feedback">
+                            Código de seguridad...
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                          <label for="vencimiento">Vencimiento (MM/AA)</label>
+                          <input type="text" class="form-control" id="vencimiento" placeholder="" value="">
+                          <div class="invalid-feedback">
+                            Fecha de vencimiento...
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div class="row">
+
+                        <div class="custom-control custom-radio">
+                          <input id="transferencia" name="paymentType" type="radio" class="custom-control-input">
+                          <label class="custom-control-label" for="transferencia">Transferencia bancaria</label>
+                        </div>
+
+                      </div>
+                      <hr>
+
+                      <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                          <input type="text" class="form-control" id="numCuenta" placeholder="" value="">
+                          <label for="numCuenta">Número de cuenta</label>
+                          <div class="invalid-feedback">
+                            Ingresa el número de cuenta
+                          </div>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary btn-lg ml-1" data-dismiss="modal">Cerrar</button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <button class="btn btn-primary btn-lg my-5" type="submit" data-toggle="modal"
+              data-target="#ModalCenter">Finalizar compra
+            </button>
+          </div>
+        </form>
+  </div>
+
+  <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalLongTitle"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="modalCuerpo"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
     </div>
   </div>
+
+
+  <footer class="text-muted bg-light">
+    <div class="container">
+      <p class="float-right">
+        <a href="#">Volver arriba</a>
+      </p>
+      <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
+    </div>
+  </footer>
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>

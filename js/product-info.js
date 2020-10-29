@@ -15,7 +15,7 @@ let name = decodeURIComponent(nombre);
 
 function showProductsList(info) {
     let html = "";
-        html += `
+    html += `
             <a href="product-info.html?producto=` + info.name + `"class="list-group-item list-group-item-action">
                 <div class="row">
                     <div class="col-2">
@@ -52,9 +52,9 @@ function showImagesGallery(array) {
 }
 
 
-function showRelatedProducts(arrayRelatedProducts, productoRelated){
+function showRelatedProducts(arrayRelatedProducts, productoRelated) {
     let htmlContentToAppendRelated = "";
-    for (let i = 0; i <arrayRelatedProducts.length; i++) {
+    for (let i = 0; i < arrayRelatedProducts.length; i++) {
         let subindice = arrayRelatedProducts[i];
         let info = productoRelated[subindice];
         htmlContentToAppendRelated += ` ` + showProductsList(info) + ``
@@ -80,7 +80,7 @@ function obtenerEstrellas(puntaje) {
 
 function showCommentsList(array) {
     let htmlComments = "";
-    let html= "";
+    let html = "";
     for (let i = 0; i < array.length; i++) {
         let comment = array[i];
 
@@ -102,7 +102,7 @@ function showCommentsList(array) {
                     </div>
                     <div class="d-flex w-100 justify-content-between  pt-2">
                         <h4 class="mb-1">`+ " " + `</h4>
-                        <small class="float-right">`+ `<i class="fas fa-calendar-alt"></i>` + ` `  +  comment.dateTime + `</small>
+                        <small class="float-right">`+ `<i class="fas fa-calendar-alt"></i>` + ` ` + comment.dateTime + `</small>
                     </div>
                 </div>
             </div>  
@@ -115,21 +115,11 @@ function showCommentsList(array) {
 
 document.addEventListener("DOMContentLoaded", function (e) {
     let productoRelated;
-    getJSONData(PRODUCTS_URL).then(function (resultObj) {
-        if (resultObj.status === "ok") {
-            productoRelated = resultObj.data;
-        }
-        getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (resultObj) {
-            if (resultObj.status === "ok") {
-                showCommentsList(resultObj.data);
-            }
-        });
-    });
- 
+    let producto;
     getJSONData(PRODUCT_INFO_URL).then(function (resultObj) {
         if (resultObj.status === "ok") {
-            let producto = resultObj.data;
-
+            producto = resultObj.data;
+        
             let productoNameHTML = document.getElementById("productoName");
             let productoDescriptionHTML = document.getElementById("productoDescription");
             let productCountHTML = document.getElementById("productCount");
@@ -139,27 +129,39 @@ document.addEventListener("DOMContentLoaded", function (e) {
             productoDescriptionHTML.innerHTML = producto.description;
             productCountHTML.innerHTML = producto.soldCount;
             productoCostHTML.innerHTML = producto.currency + " " + producto.cost;
-
             showImagesGallery(producto.images);
-            showRelatedProducts(producto.relatedProducts, productoRelated);
         }
+    }).then(function () {
+        getJSONData(PRODUCTS_URL).then(function (resultObj) {
+            if (resultObj.status === "ok") {
+                productoRelated = resultObj.data;
+                showRelatedProducts(producto.relatedProducts, productoRelated);
+            }
+            getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (resultObj) {
+                if (resultObj.status === "ok") {
+                    showCommentsList(resultObj.data);
+                }
+            });
+        });
     });
-    var currentDate = new Date();
-    var dateTime = currentDate.getFullYear() + "-"
-            + (currentDate.getMonth()+1) + "-"
-            + currentDate.getDate() + " "
-            + currentDate.getHours() + ":"
-            + currentDate.getMinutes() + ":" 
-            + currentDate.getSeconds();
+});
 
-    //Agregar un nuevo comentario
-    document.getElementById('comentarios').addEventListener('submit', (evento) => {
-        evento.preventDefault();
-        let comentario = {
-            description: document.getElementById("coment").value,
-            puntaje: document.querySelector('input[type=radio]:checked').value
-        }
-        let html = `
+var currentDate = new Date();
+var dateTime = currentDate.getFullYear() + "-"
+    + (currentDate.getMonth() + 1) + "-"
+    + currentDate.getDate() + " "
+    + currentDate.getHours() + ":"
+    + currentDate.getMinutes() + ":"
+    + currentDate.getSeconds();
+
+//Agregar un nuevo comentario
+document.getElementById('comentarios').addEventListener('submit', (evento) => {
+    evento.preventDefault();
+    let comentario = {
+        description: document.getElementById("coment").value,
+        puntaje: document.querySelector('input[type=radio]:checked').value
+    }
+    let html = `
         <div class="row">
             <div class="list-group-item list-group-item-action">
                 <div class="text-center p-4"> 
@@ -181,9 +183,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 </div>
             </div>  
         </div>`
-        document.getElementById("comments").innerHTML += html;
+    document.getElementById("comments").innerHTML += html;
 
-        return true;
-    
-    })
-});
+    return true;
+
+})
