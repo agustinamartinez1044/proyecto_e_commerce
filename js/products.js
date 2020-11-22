@@ -72,6 +72,23 @@ function sortAndShowProducts(sortCriteria, productsArray) {
     showProductsList();
 }
 
+let arrayOriginal = currentProductsArray;
+document.getElementById("searchBar").addEventListener("keyup", function(){
+    filterSerch = document.getElementById("searchBar").value;
+
+    if(filterSerch != undefined){
+        arrayOriginal = currentProductsArray;
+        currentProductsArray = currentProductsArray.filter(function (elemento){
+            return elemento.name.toLowerCase().includes(filterSerch.toLowerCase());
+        })
+    }
+    showProductsList();
+
+    currentProductsArray = arrayOriginal;
+})
+
+
+
 document.addEventListener("DOMContentLoaded", function (e) {
 
     getJSONData(PRODUCTS_URL).then(function (resultObj) {
@@ -123,6 +140,5 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
         showProductsList()
     });
-
 
 })
