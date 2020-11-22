@@ -11,6 +11,9 @@
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
 
   <style>
     .bd-placeholder-img {
@@ -27,6 +30,11 @@
         font-size: 3.5rem;
       }
     }
+
+    @font-face {
+      font-family: "FontAwesome";
+      src: url("fontawesome-webfont.woff");
+    }
   </style>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
@@ -35,21 +43,89 @@
 
 <body>
   <nav class="site-header sticky-top py-1 bg-dark">
-      <div class="container d-flex flex-column flex-md-row justify-content-between">
-        <a class="py-2 d-none d-md-inline-block" href="index.html">Inicio</a>
-        <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
-        <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
-        <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
+    <div class="container d-flex flex-column flex-md-row justify-content-between">
+      <a class="py-2 d-none d-md-inline-block" href="index.html">Inicio</a>
+      <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
+      <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
+      <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
     </div>
   </nav>
+
   <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 7 (Fecha de entrega: 8/11/202020) -> Punto 1 y 2.</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+    <div class="text-center p-4">
+      <img  src="img/usuario.png" style="height: 150px;"><h2> Mi Perfil</h2>
+      <p class="lead"></p>
+    </div>
+
+    <div class="row">
+      <div class="col text-right">
+        <button type="button" class="btn bg-transparent" style="color: rgb(40, 40, 151);" data-toggle="modal"
+          data-target="#modalForm">
+          <dt><i class="fas fa-edit"></i> Editar perfil</dt>
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" tabindex="-1" id="modalForm" role="dialog" id="Modal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Editar perfil</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- Modal Body -->
+          <div class="modal-body" id="modalCuerpo">
+            <form id="infoperfil" method="POST">
+              <p>Nombre:<input type="text" class="form-control" style="width: 90%;" id="nombreform"></p>
+              <p>Apellido:<input type="text" class="form-control" style="width: 90%;" id="apellidoform"></p>
+              <p>Correo Electrónico:;<input type="email" class="form-control" style="width: 90%;" id="emailform"></p>
+              <p>Edad:<input type="number" class="form-control" style="width: 20%;" id="edadform"></p>
+              <p>Teléfono de contacto:<input type="number" class="form-control" style="width: 50%;"id="telefonoform"></p>
+              <!-- Modal Footer -->
+              <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">Guardar</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="list-group">
+      <p>
+      <div class="list-group-item list-group-item-action"><strong>Nombre:</strong> 
+        <div id="nombreinfo" ></div>
+      </div></p>
+      <p>
+      <div class="list-group-item list-group-item-action"><strong>Apellido:</strong> 
+        <div id="apellidoinfo" ></div>
+      </div></p>
+      <p>
+      <div class="list-group-item list-group-item-action"><strong>Correo Electrónico:</strong> 
+        <div id="emailinfo"></div>
+      </div>
+      </p>
+      <p>
+      <div  class="list-group-item list-group-item-action"><strong>Edad:</strong> 
+        <div id="edadinfo" ></div>
+      </div>
+      </p>
+      <p>
+      <div class="list-group-item list-group-item-action"><strong>Teléfono de contacto:</strong> 
+        <div id="celularinfo" ></div>
+      </div>
+      </p>
     </div>
   </div>
+
+
+
   <footer class="text-muted bg-light">
     <div class="container">
       <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
@@ -75,6 +151,7 @@
   <script src="js/dropzone.js"></script>
   <script src="js/init.js"></script>
   <script src="js/my-profile.js"></script>
+
 </body>
 
 </html>

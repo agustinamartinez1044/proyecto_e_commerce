@@ -40,23 +40,24 @@ function showProductsList(array) {
         if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
             ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))) {
             html += `
-            <a href="product-info.html?producto=` + product.name + `"class="list-group-item list-group-item-action">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="` + product.imgSrc + `" alt="` + product.description + `" class="img-thumbnail">
-                    </div>
-                    <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">`+ product.name + " - " + product.currency + " " + product.cost + `</h4>
-                            <small class="text-muted">` + product.soldCount + ` artículos vendidos</small>
-                        </div>
-                        <p class="mb-1">` + product.description + `</p>
-                        
-                    </div>
-                </div>
-                </a>`   
+            <div class="card">
+            <img class="card-img-top" src="` + product.imgSrc + `" alt="Card image cap" >
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <hr><h3> ` + product.name + ` </h4><hr>
+                <p class="card-text">` + product.description + `</p>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item"><small class="text-muted">` + product.soldCount + ` artículos vendidos</small></li>
+                <li class="list-group-item"><h4 class="mb-1">Costo:`+ " " + product.currency + " " + product.cost + `</h4></li>
+            </ul>
+            </div>
+            <div class="card-footer">
+            <a href="product-info.html?producto=` + product.name + `class="btn btn-primary" class="card-link">Ir al producto</a>
+            </div>
+        </div>
+`   
         }
-        document.getElementById("contenedor").innerHTML = html;
+        document.getElementById("contenedorProduct").innerHTML = html;
     }
 }
 
