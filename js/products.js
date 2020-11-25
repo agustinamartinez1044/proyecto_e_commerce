@@ -47,15 +47,15 @@ function showProductsList(array) {
                 <hr><h3> ` + product.name + ` </h4><hr>
                 <p class="card-text">` + product.description + `</p>
                 <ul class="list-group list-group-flush">
-                <li class="list-group-item"><small class="text-muted">` + product.soldCount + ` artículos vendidos</small></li>
-                <li class="list-group-item"><h4 class="mb-1">Costo:`+ " " + product.currency + " " + product.cost + `</h4></li>
-            </ul>
+                    <li class="list-group-item"><small class="text-muted">` + product.soldCount + ` artículos vendidos</small></li>
+                    <li class="list-group-item"><h4 class="mb-1">Costo:`+ " " + product.currency + " " + product.cost + `</h4></li>
+                </ul>
             </div>
             <div class="card-footer">
-            <a href="product-info.html?producto=` + product.name + `class="btn btn-primary" class="card-link">Ir al producto</a>
+                <a href="product-info.html?producto=`+ product.name + `">Ir al producto</a>
             </div>
         </div>
-`   
+`
         }
         document.getElementById("contenedorProduct").innerHTML = html;
     }
@@ -73,12 +73,12 @@ function sortAndShowProducts(sortCriteria, productsArray) {
 }
 
 let arrayOriginal = currentProductsArray;
-document.getElementById("searchBar").addEventListener("keyup", function(){
+document.getElementById("searchBar").addEventListener("keyup", function () {
     filterSerch = document.getElementById("searchBar").value;
 
-    if(filterSerch != undefined){
+    if (filterSerch != undefined) {
         arrayOriginal = currentProductsArray;
-        currentProductsArray = currentProductsArray.filter(function (elemento){
+        currentProductsArray = currentProductsArray.filter(function (elemento) {
             return elemento.name.toLowerCase().includes(filterSerch.toLowerCase());
         })
     }
