@@ -1,18 +1,14 @@
-function guardarDatos() {
-    document.getElementById("infoperfil").addEventListener("click", function (e) {
-        e.preventDefault();
-        
-        let usuario = JSON.parse(localStorage.getItem("datos"));
-        if(usuario){
-            document.getElementById("nombreinfo").innerHTML = usuario.nombre
-            document.getElementById("apellidoinfo").innerHTML = usuario.apellido;
-            document.getElementById("emailinfo").innerHTML = usuario.email;
-            document.getElementById("edadinfo").innerHTML = usuario.edad;
-            document.getElementById("celularinfo").innerHTML = usuario.telefono;
-            // mostrarDatos();
-        }
-       
+document.getElementById("editarPerfil").addEventListener("click", function(e){
+    var user = JSON.parse(localStorage.getItem("datos"));
+    document.getElementById("nombreform").value = user.nombre;
+    document.getElementById("apellidoform").value = user.apellido;
+    document.getElementById("emailform").value = user.email;
+    document.getElementById("edadform").value = user.edad;
+    document.getElementById("telefonoform").value = user.telefono;
+})
 
+function guardarDatos() {
+    document.getElementById("infoperfil").addEventListener("click", function (e) { 
         let datosperfil = {
             nombre: document.getElementById("nombreform").value,
             apellido: document.getElementById("apellidoform").value,
@@ -24,6 +20,7 @@ function guardarDatos() {
         mostrarDatos();
     })
 }
+
 function mostrarDatos(){
     var infos = JSON.parse(localStorage.getItem("datos"));
         document.getElementById("nombreinfo").innerHTML = infos.nombre

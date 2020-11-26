@@ -59,7 +59,7 @@
 
     <div class="row">
       <div class="col text-right">
-        <button type="button" class="btn bg-transparent" style="color: rgb(40, 40, 151);" data-toggle="modal"
+        <button type="button" id="editarPerfil"  class="btn bg-transparent" style="color: rgb(40, 40, 151);" data-toggle="modal"
           data-target="#modalForm">
           <dt><i class="fas fa-edit"></i> Editar perfil</dt>
         </button>
@@ -79,7 +79,7 @@
           </div>
           <!-- Modal Body -->
           <div class="modal-body" id="modalCuerpo">
-            <form id="infoperfil" method="POST">
+            <form method="POST">
               <p>Nombre:<input type="text" class="form-control" style="width: 90%;" id="nombreform"></p>
               <p>Apellido:<input type="text" class="form-control" style="width: 90%;" id="apellidoform"></p>
               <p>Correo Electrónico:;<input type="email" class="form-control" style="width: 90%;" id="emailform"></p>
@@ -87,7 +87,7 @@
               <p>Teléfono de contacto:<input type="number" class="form-control" style="width: 50%;"id="telefonoform"></p>
               <!-- Modal Footer -->
               <div class="modal-footer">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" id="infoperfil" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">Guardar</span>
                 </button>
               </div>
